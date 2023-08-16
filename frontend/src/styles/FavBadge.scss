@@ -1,5 +1,21 @@
 .fav-badge {
+  display: flex;
+  align-items: center;
+  align-content: center;
+
   position: relative;
+  
+  .notification {
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    background-color: yellow;
+    border-color: red;
+    margin-top: -5px;
+    margin-left: -5px;
+    border-style: solid;
+
+  }
 }
 
 .fav-badge__count { 

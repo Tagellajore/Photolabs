@@ -3,7 +3,7 @@ import React, { useCallback, useState } from 'react';
 import FavIcon from './FavIcon';
 import '../styles/PhotoFavButton.scss';
 
-function PhotoFavButton() {
+function PhotoFavButton({count, setCount}) {
   const [like, setLiked] = useState(false);
 
   return (
@@ -11,6 +11,7 @@ function PhotoFavButton() {
       <div className="photo-list__fav-icon-svg">
       <button onClick={() => {
         // console.log('clicked')
+        setCount(count + 1)
         return setLiked(true)}}>
           <FavIcon selected={like} /> {/* Pass the selected prop */}
         </button>
@@ -20,7 +21,3 @@ function PhotoFavButton() {
 }
 
 export default PhotoFavButton;
-
-/**
- * <FavIcon selected={like}/>
- */

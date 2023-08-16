@@ -2,13 +2,15 @@ import React from "react";
 
 import "../styles/PhotoListItem.scss";
 import PhotoFavButton from "./PhotoFavButton";
+import {} from "mocks/topics";
+
 
 
 const PhotoListItem = (props) => {
   /* Insert React */
   return(
     <ol className="photo-list__item">
-      <PhotoFavButton/>
+      <PhotoFavButton count={props.count} setCount={props.setCount}/>
       <img src={props.img} alt="" className="photo-list__image"/>
       <div className="photo-list__user-details">
       <img src={props.profile} alt="" className="photo-list__user-profile"/>
