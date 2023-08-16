@@ -18,6 +18,7 @@ const PhotoList = (props) => {
           city = {element.location.city}
           country = {element.location.country}
           username = {element.user.name}
+          imageClick = {props.imageClick}
           />
         );
       })}

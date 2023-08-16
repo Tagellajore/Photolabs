@@ -11,7 +11,12 @@ const PhotoListItem = (props) => {
   return(
     <ol className="photo-list__item">
       <PhotoFavButton count={props.count} setCount={props.setCount}/>
-      <img src={props.img} alt="" className="photo-list__image"/>
+      <img 
+      src={props.img} 
+      alt="" 
+      className="photo-list__image"
+      onClick={props.imageClick}
+      />
       <div className="photo-list__user-details">
       <img src={props.profile} alt="" className="photo-list__user-profile"/>
       <div className="photo-list__user-info">
