@@ -7,9 +7,10 @@ const TopicListItem = (props) => {
   return (
     <div className="topic-list__item">
       {/* Insert React */}
-      <span>
+      <button>
+        {console.log('click')}
       {props.topic}
-      </span>
+      </button>
     </div>
   );
 };

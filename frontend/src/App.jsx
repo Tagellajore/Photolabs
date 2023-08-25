@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React from "react";
 
 import useApplicationData from "components/hooks/useApplicationData";
 import "./App.scss";
 import HomeRoute from "routes/HomeRoute";
-import photos from "mocks/photos";
-import topics from "mocks/topics";
+// import photos from "mocks/photos";
+// import topics from "mocks/topics";
 import PhotoDetailsModal from "routes/PhotoDetailsModal";
 // import PhotoDetailsModal from 'routes/PhotoDetailsModal';
 
@@ -18,10 +18,12 @@ const App = () => {
     setPhotoSelected, 
     onClosePhotoDetailsModal,
     favouriteList, 
-    toggleFavourite
+    toggleFavourite,
+    photoData,
+    topicData
   } = useApplicationData();
  
-  console.log('console from app', favouriteList);
+  // console.log('console from app', favouriteList);
 
   return (
     <div className="App">
@@ -31,8 +33,8 @@ const App = () => {
       {/* <PhotoDetailsModal/> */}
       <HomeRoute
         count={count}
-        photos={photos}
-        topics={topics}
+        photos={photoData}
+        topics={topicData}
         imageClick={setPhotoSelected}
         favouriteList={favouriteList}
         toggleFavourite={toggleFavourite}

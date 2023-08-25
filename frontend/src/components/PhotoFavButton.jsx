@@ -6,7 +6,7 @@ import '../styles/PhotoFavButton.scss';
 
 function PhotoFavButton(props) {
   // const { addToFavourite, removeFromFavourite } = useApplicationData();
-  console.log('+++++++7', props)
+  // console.log('+++++++7', props)
   // console.log(props);
   // const {count, setCount} = props;
   // const [like, setLiked] = useState(false);

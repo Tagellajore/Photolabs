@@ -12,12 +12,12 @@ import PhotoList from 'components/PhotoList';
 
 const PhotoDetailsModal = (props) => {
 
-  console.log("_________________++++++++++++++++++ from photdetailsmodal______________", props)
+  // console.log("_________________++++++++++++++++++ from photdetailsmodal______________", props)
   // console.log(props);
   // console.log(props.imgs.similar_photos.photo2)
  
   const photolist = Object.values(props.imgs.similar_photos)
-  console.log(photolist);
+  // console.log(photolist);
 
   return (
     <div className="photo-details-modal">

@@ -3,7 +3,7 @@ import React from 'react';
 import '../styles/TopNavigationBar.scss'
 import TopicList from './TopicList';
 import FavBadge from './FavBadge';
-import useApplicationData from './hooks/useApplicationData';
+// import useApplicationData from './hooks/useApplicationData';
 
 const TopNavigationBar = (props) => {
 

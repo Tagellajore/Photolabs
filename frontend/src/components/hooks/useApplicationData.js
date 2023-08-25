@@ -1,4 +1,4 @@
-import { useReducer } from "react";
+import { useEffect, useReducer } from "react";
 
 /* insert app levels actions below */
 export const ACTIONS = {
@@ -6,7 +6,6 @@ export const ACTIONS = {
   FAV_PHOTO_REMOVED: 'FAV_PHOTO_REMOVED',
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
-  SELECT_PHOTO: 'SELECT_PHOTO',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
   SET_MODAL_FALSE: 'SET_MODAL_FALSE'
 }
@@ -15,14 +14,16 @@ const initialState = {
   count: 0,
   modal: false,
   imgs: {},
-  favouriteList: []
+  favouriteList: [],
+  photoData: [],
+  topicData: []
 }
 
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.FAV_PHOTO_ADDED:
       // console.log('console for add',state, action);
-      console.log('console for state',state);
+      // console.log('console for state',state);
       return { 
         ...state,
         favouriteList: [...state.favouriteList, action.payload],
@@ -30,7 +31,7 @@ function reducer(state, action) {
        }; 
 
     case ACTIONS.FAV_PHOTO_REMOVED:
-      console.log('console for remove',state);
+      // console.log('console for remove',state);
       return {
         ...state,
         favouriteList: state.favouriteList.filter(photoId => Number(photoId) !== Number(action.payload)),
@@ -41,12 +42,24 @@ function reducer(state, action) {
         ...state, 
         modal: false
       }
-    case ACTIONS.SET_PHOTO_DATA:
+    case ACTIONS.DISPLAY_PHOTO_DETAILS:
       // console.log(action.payload);
       return {
         ...state,
         imgs: action.payload,
         modal: !state.modal
+      }
+    case ACTIONS.SET_PHOTO_DATA:
+      // console.log(action.payload);
+      return {
+        ...state,
+        photoData: action.payload,
+      }
+    case ACTIONS.SET_TOPIC_DATA:
+      // console.log(action.payload);
+      return {
+        ...state,
+        topicData: action.payload
       }
     default:
       throw new Error(
@@ -64,11 +77,22 @@ const useApplicationData = () => {
   // const [imgs, setImg] = useState({});
   // const [favouriteList, setFavouriteList] = useState([]);
 
+  useEffect(() => {
+    fetch('http://localhost:8001/api/photos')
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }))
+  }, [])
+
+  useEffect(() => {
+    fetch('http://localhost:8001/api/topics')
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data }))
+  }, [])
 
   const setPhotoSelected = (images) => {
       // setModal(!modal)
       // setImg(images)
-      dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: images })
+      dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: images })
   }
 
   const onClosePhotoDetailsModal = () => {
@@ -91,7 +115,7 @@ const useApplicationData = () => {
     return dispatch( {type: ACTIONS.FAV_PHOTO_ADDED, payload: id })
   }
 
-  console.log('console state line 85',state)
+  // console.log('console state line 85',state)
   return {
     state,
     count: state.count,
@@ -100,7 +124,9 @@ const useApplicationData = () => {
     favouriteList: state.favouriteList,
     setPhotoSelected,
     onClosePhotoDetailsModal,
-    toggleFavourite
+    toggleFavourite,
+    photoData: state.photoData,
+    topicData: state.topicData
   }; 
   
 };
