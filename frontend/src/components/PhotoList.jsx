@@ -11,14 +11,18 @@ const PhotoList = (props) => {
         return (
           <PhotoListItem
           count={props.count}
-          setCount={props.setCount}
           key = {element.id}
+          id = {element.id}
           img = {element.urls.regular}
           profile = {element.user.profile}
           city = {element.location.city}
           country = {element.location.country}
           username = {element.user.name}
           imageClick = {props.imageClick}
+          modal = {props.modal}
+          element = {element}
+          favouriteList={props.favouriteList}
+          toggleFavourite={props.toggleFavourite}
           />
         );
       })}
