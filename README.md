@@ -24,31 +24,3 @@ npm start
 ```
 
 
-```jsx
-import useState from 'react'
-
-const useApplicationData = () => {
-  const [count, setCount] = useState(0);
-  const [modal, setModal] = useState(false);
-  const [imgs, setImg] = useState({});
-  const [favouriteList, setFavouriteList] = useState([]);
-
-
-  const setPhotoSelected = (images) => {
-      setModal(!modal)
-      setImg(images)
-    
-  }
-
-  const onClosePhotoDetailsModal = () => {
-      setModal(false)
-    
-  }
-
-  return { count, setCount, modal, imgs, setPhotoSelected, onClosePhotoDetailsModal, favouriteList, setFavouriteList }; 
-  
-};
-
-export default useApplicationData;
-
-```
