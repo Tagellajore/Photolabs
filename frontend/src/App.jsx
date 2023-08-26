@@ -20,12 +20,15 @@ const App = () => {
     favouriteList, 
     toggleFavourite,
     photoData,
-    topicData
+    topicData,
+    topicClicked,
+    photoByTopic
   } = useApplicationData();
  
   // console.log('console from app', favouriteList);
 
   return (
+    
     <div className="App">
       {/* <TopNavigationBar/> */}
       {/* <TopicList/> */}
@@ -38,6 +41,8 @@ const App = () => {
         imageClick={setPhotoSelected}
         favouriteList={favouriteList}
         toggleFavourite={toggleFavourite}
+        topicClicked={topicClicked}
+        photoByTopic={photoByTopic}
       />
       {modal && (
         <PhotoDetailsModal 

@@ -5,6 +5,7 @@ import TopicListItem from "./TopicListItem";
 
 
 const TopicList = (props) => {
+  console.log('console from topic list', props)
   return (
     <div className="top-nav-bar__topic-list">
       {/* Insert React */}
@@ -13,6 +14,9 @@ const TopicList = (props) => {
           <TopicListItem
           key = {element.id}
           topic = {element.title}
+          topicClicked={props.topicClicked}
+          photoByTopic={props.photoByTopic}
+          topicId={element.id}
           />
         );
       })}

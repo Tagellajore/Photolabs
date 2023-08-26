@@ -13,15 +13,19 @@ const TopNavigationBar = (props) => {
   return (
     <div className="top-nav-bar">
       <span className="top-nav-bar__logo">PhotoLabs</span>
-      <div className='nav-topic'>
-      <TopicList topics ={props.topics}/>
+      <div className="nav-topic">
+        <TopicList
+          topics={props.topics}
+          topicClicked={props.topicClicked}
+          photoByTopic={props.photoByTopic}
+        />
       </div>
-      <div className='nav-badge'>
+      <div className="nav-badge">
         {/* xxxx {props.favouriteList?.length} */}
-      <FavBadge count={props.favouriteList?.length} />
+        <FavBadge count={props.favouriteList?.length} />
       </div>
     </div>
-  )
+  );
 }
 
 export default TopNavigationBar;

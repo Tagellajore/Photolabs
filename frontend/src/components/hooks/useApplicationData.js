@@ -7,7 +7,8 @@ export const ACTIONS = {
   SET_PHOTO_DATA: 'SET_PHOTO_DATA',
   SET_TOPIC_DATA: 'SET_TOPIC_DATA',
   DISPLAY_PHOTO_DETAILS: 'DISPLAY_PHOTO_DETAILS',
-  SET_MODAL_FALSE: 'SET_MODAL_FALSE'
+  SET_MODAL_FALSE: 'SET_MODAL_FALSE',
+  GET_PHOTOS_BY_TOPICS: 'GET_PHOTOS_BY_TOPICS'
 }
 
 const initialState = {
@@ -16,7 +17,8 @@ const initialState = {
   imgs: {},
   favouriteList: [],
   photoData: [],
-  topicData: []
+  topicData: [],
+  photoByTopic: []
 }
 
 function reducer(state, action) {
@@ -61,6 +63,12 @@ function reducer(state, action) {
         ...state,
         topicData: action.payload
       }
+    case ACTIONS.GET_PHOTOS_BY_TOPICS:
+      // console.log(action.payload);
+      return {
+        ...state,
+        photoByTopic: action.payload
+      }
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -72,6 +80,15 @@ function reducer(state, action) {
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  const topicClicked = (ID) => {
+    let topic
+    topic = `http://localhost:8001/api/topics/photos/${ID}`;
+
+    fetch(topic)
+      .then((response) => response.json())
+      .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }));
+  };
+
   // const [count, setCount] = useState(0);
   // const [modal, setModal] = useState(false);
   // const [imgs, setImg] = useState({});
@@ -82,12 +99,23 @@ const useApplicationData = () => {
       .then((response) => response.json())
       .then((data) => dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data }))
   }, [])
-
   useEffect(() => {
     fetch('http://localhost:8001/api/topics')
       .then((response) => response.json())
       .then((data) => dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data }))
   }, [])
+
+  // const TOPIC_ID = 1
+
+  // useEffect(() => {
+  //   fetch(`http://localhost:8001/api/topics/photos/1}`)
+  //     .then((response) => response.json())
+  //     .then((data) =>
+  //       dispatch({ type: ACTIONS.GET_PHOTOS_BY_TOPICS, payload: data })
+  //     );
+  // }, []);
+
+
 
   const setPhotoSelected = (images) => {
       // setModal(!modal)
@@ -114,6 +142,14 @@ const useApplicationData = () => {
     } 
     return dispatch( {type: ACTIONS.FAV_PHOTO_ADDED, payload: id })
   }
+  
+  // const topicClicked = (ID) => {
+  //   console.log('++++++++++++++++++++++++++++++++')
+  //   console.log(topic)
+  //   topic = `http://localhost:8001/api/topics/photos/${ID}`
+  //   console.log('++++++++++++++++++++++++++++++++')
+  //   console.log(topic)
+  // };
 
   // console.log('console state line 85',state)
   return {
@@ -126,7 +162,9 @@ const useApplicationData = () => {
     onClosePhotoDetailsModal,
     toggleFavourite,
     photoData: state.photoData,
-    topicData: state.topicData
+    topicData: state.topicData,
+    topicClicked,
+    photoByTopic: state.photoByTopic
   }; 
   
 };
