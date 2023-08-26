@@ -76,35 +76,30 @@ function reducer(state, action) {
 // useApplication reducerhook component
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
-
+  
   useEffect(() => {
-    fetch("api/photos")
-      .then((response) => {
+    // using promise all for fetching both photo and topic data from API
+    Promise.all([
+      fetch("api/photos").then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         return response.json();
-      })
-      .then((data) => {
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
-      })
-      .catch((error) => {
-        console.error("Error Fetching photo data:", error);
-      });
-  }, []);
-  useEffect(() => {
-    fetch("api/topics")
-      .then((response) => {
+      }),
+      fetch("api/topics").then((response) => {
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }
         return response.json();
-      })
-      .then((data) => {
-        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data });
+      }),
+    ])
+      .then(([photoData, topicData]) => {
+        // dipatch for both topic and photo
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: photoData });
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: topicData });
       })
       .catch((error) => {
-        console.error("Error Fetching topic data:", error);
+        console.error("Error fetching data:", error);
       });
   }, []);
 
