@@ -2,14 +2,8 @@ import React, { useState } from "react";
 import PhotoList from "../components/PhotoList";
 import TopNavigationBar from "../components/TopNavigationBar";
 
-
+// Home route for rendering both the top navigation bar and photolist
 const HomeRoute = (props) => {
-  
-  // console.log(props);
-  // const [count, setCount] = useState(0);
-  // {topics, photos, imageClick}
-  
-
   return (
     <div className="home-route">
       <TopNavigationBar
@@ -28,6 +22,6 @@ const HomeRoute = (props) => {
       />
     </div>
   );
-}
+};
 
 export default HomeRoute;
