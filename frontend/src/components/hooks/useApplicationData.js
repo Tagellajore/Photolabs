@@ -73,35 +73,59 @@ function reducer(state, action) {
   }
 }
 
-// useApplication reducerhook component 
+// useApplication reducerhook component
 const useApplicationData = () => {
   const [state, dispatch] = useReducer(reducer, initialState);
 
+  useEffect(() => {
+    fetch("api/photos")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
+      })
+      .catch((error) => {
+        console.error("Error Fetching photo data:", error);
+      });
+  }, []);
+  useEffect(() => {
+    fetch("api/topics")
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data });
+      })
+      .catch((error) => {
+        console.error("Error Fetching topic data:", error);
+      });
+  }, []);
+
   const topicClicked = (ID) => {
     let topic;
-    topic = `http://localhost:8001/api/topics/photos/${ID}`;
+    topic = `api/topics/photos/${ID}`;
 
     fetch(topic)
-      .then((response) => response.json())
-      .then((data) =>
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data })
-      );
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error("Network response was not ok");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data });
+      })
+      .catch((error) => {
+        console.error("Error Fetching phots based on topics", error);
+      });
   };
-
-  useEffect(() => {
-    fetch("http://localhost:8001/api/photos")
-      .then((response) => response.json())
-      .then((data) =>
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data })
-      );
-  }, []);
-  useEffect(() => {
-    fetch("http://localhost:8001/api/topics")
-      .then((response) => response.json())
-      .then((data) =>
-        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data })
-      );
-  }, []);
 
   const setPhotoSelected = (images) => {
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS, payload: images });
