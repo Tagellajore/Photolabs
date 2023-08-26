@@ -5,7 +5,6 @@ import TopicListItem from "./TopicListItem";
 
 // component for rendering topic list item
 const TopicList = (props) => {
-  console.log("console from topic list", props);
   return (
     <div className="top-nav-bar__topic-list">
       {props.topics.map((element) => {
